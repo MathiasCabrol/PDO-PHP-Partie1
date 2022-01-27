@@ -6,7 +6,7 @@ include '../requeteBDD.php';
  * Requête SQL permettant d'afficher uniquement les clients disposant d'une carte de crédit
  */
 
-$sqlQueryFirstLetter = 'SELECT `lastName`, `firstName` FROM `clients` WHERE `lastName` LIKE "M%"';
+$sqlQueryFirstLetter = 'SELECT `lastName`, `firstName` FROM `clients` WHERE `lastName` LIKE "M%" ORDER BY `lastName` ASC';
 $FirstLetterClients = $db->query($sqlQueryFirstLetter);
 $FirstLetterClientsList = $FirstLetterClients->fetchAll(PDO::FETCH_OBJ);
 

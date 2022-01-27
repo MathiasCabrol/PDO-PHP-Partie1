@@ -6,7 +6,10 @@ include '../requeteBDD.php';
  * Requête SQL permettant d'afficher uniquement les clients disposant d'une carte de crédit
  */
 
-$sqlQueryCard = 'SELECT `id`, `lastName`, `firstName`, `cardNumber`, DATE_FORMAT (`birthDate`, "%d/%m/%Y") AS `birthDate` FROM `clients` WHERE `card` = 1';
+$sqlQueryCard = 'SELECT `lastName`, `firstName`, DATE_FORMAT (`birthDate`, "%d/%m/%Y") AS `birthDate`, `clients`.`cardNumber` FROM `clients`
+LEFT JOIN `cards` ON `cards`.`cardNumber` = `clients`.`cardNumber`
+LEFT JOIN `cardTypes` ON `cardTypes`.`id` = `cards`.`cardTypesId` 
+WHERE `cardTypes`.`type` = \'Fidélité\'';
 $cardClients = $db->query($sqlQueryCard);
 $cardClientsList = $cardClients->fetchAll(PDO::FETCH_OBJ);
 
